@@ -1,9 +1,245 @@
-@import 'tailwindcss';
+:root {
+  --bg-deep: #171225;
+  --bg-mid: #372a5c;
+  --bg-warm: #f3c9a0;
+  --accent-violet: #9b6bff;
+  --accent-magenta: #ff5fb0;
+  --text-primary: #f5f2ff;
+  --text-muted: #cabfe8;
+  --pill-blue-a: #4f7cff;
+  --pill-blue-b: #274bc7;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+* { box-sizing: border-box; }
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Manrope", system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-deep);
+  overflow-x: hidden;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(23, 18, 37, 0.55);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.brand img {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.main-nav {
+  display: flex;
+  gap: 34px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--text-primary);
+}
+
+.main-nav a.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* ---------- Hero / scroll-scrub section ---------- */
+
+.hero-pin-track {
+  position: relative;
+  height: 400vh; /* scroll distance that drives the rotation */
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(155, 107, 255, 0.35), transparent 55%),
+    linear-gradient(190deg, var(--bg-deep) 0%, var(--bg-mid) 55%, var(--bg-warm) 100%);
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 46px 46px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  padding-left: 64px;
+  max-width: 560px;
+}
+
+.hero-copy h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  line-height: 1.02;
+  margin: 0 0 18px;
+  color: var(--accent-violet);
+  text-shadow: 0 0 30px rgba(155, 107, 255, 0.45);
+}
+
+.hero-copy p {
+  margin: 6px 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.hero-copy .line-green { color: #8be3c0; }
+.hero-copy .line-pink { color: var(--accent-magenta); }
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.btn {
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, var(--pill-blue-a), var(--pill-blue-b));
+  box-shadow: 0 10px 24px rgba(38, 74, 199, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(38, 74, 199, 0.45);
+}
+
+.btn.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+}
+
+.phone-stage {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-stage canvas {
+  width: min(70vw, 480px);
+  height: auto;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.35));
+}
+
+.scroll-progress-wrap {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  z-index: 3;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-violet), var(--accent-magenta));
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  z-index: 3;
+}
+
+/* ---------- Below-fold placeholder content ---------- */
+
+.section {
+  padding: 96px 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.section p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .hero-sticky {
+    grid-template-columns: 1fr;
+    text-align: left;
+    padding-top: 80px;
+  }
+  .hero-copy { padding-left: 24px; padding-right: 24px; }
+  .phone-stage { height: 55%; }
+  .main-nav { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }

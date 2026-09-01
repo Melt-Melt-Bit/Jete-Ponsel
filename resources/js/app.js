@@ -1,1 +1,1 @@
-//
+import './scroll-scrub.js';

@@ -14,6 +14,14 @@ export default defineConfig({
                 }),
             ],
         }),
+        laravel({
+    input: ['resources/css/app.css', 'resources/js/app.js'],
+    refresh: true,
+}),
+laravel({
+    input: ['resources/css/app.css', 'resources/js/app.js', 'resources/js/scroll-scrub.js'],
+    refresh: true,
+}),
         tailwindcss(),
     ],
     server: {
