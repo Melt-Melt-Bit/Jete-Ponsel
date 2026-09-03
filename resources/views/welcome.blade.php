@@ -37,7 +37,7 @@
                     <p class="hero-line">Pelanggan senang kita<br>senang</p>
                     <div class="hero-actions">
                         <a class="button button-dark" href="#categories">Learn More <span>↗</span></a>
-                        <a class="button button-outline" href="login.blade.php">ntr kasi nma <span>↗</span></a>
+                        <a class="button button-outline" href="#footer">ntr kasi nma <span>↗</span></a>
                     </div>
                 </div>
                 <div class="hero-art">
