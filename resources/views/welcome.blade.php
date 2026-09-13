@@ -8,25 +8,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
-        <header class="site-header">
-            <a class="brand-mark" href="/" aria-label="JT Ponsel home">
-                <span class="brand-icon">
-                    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 4h20a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 13h14M20 13v14M13 27h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-                </span>
-                <span>JT<span class="brand-dot">.</span></span>
-            </a>
-            <nav class="main-nav" aria-label="Main navigation">
-                <a class="active" href="#home">Home</a>
-                <a href="#categories">Phone</a>
-                <a href="#categories">Earphone</a>
-                <a href="#categories">Tablet</a>
-                <a href="#categories">Casing</a>
-                <a href="#footer">More</a>
-            </nav>
-            <a class="cart-button" href="#best-seller" aria-label="View best seller products">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H6M10 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm9 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-        </header>
+        <x-site-header active="home" cart-href="#best-seller" />
 
         <main>
             <section class="hero" id="home">
