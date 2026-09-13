@@ -10,14 +10,18 @@
 <body class="bg-[#0f0f11] text-white font-sans antialiased min-h-screen">
 
     <div class="max-w-4xl mx-auto p-4 md:p-8">
+        <a href="{{ route('home') }}" class="flex items-center gap-3 mb-8 font-bold tracking-tight">
+            <span class="grid h-8 w-8 place-items-center"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 4h20a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 13h14M20 13v14M13 27h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+            <span>JT<span class="text-[#2685e8]">.</span></span>
+        </a>
 
         <!-- Header -->
-        <div class="flex items-center gap-4 mb-8 cursor-pointer">
+        <a href="{{ route('featured-product') }}" class="flex items-center gap-4 mb-8">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-8 h-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
             </svg>
             <h1 class="text-lg md:text-xl font-bold tracking-wide">HOME/DETAIL</h1>
-        </div>
+        </a>
 
         <!-- Main Product Card -->
         <div class="bg-[#1a1a1c] border border-gray-800 rounded-2xl overflow-hidden flex flex-col md:flex-row">
@@ -65,8 +69,8 @@
 
                 <!-- Tombol Action -->
                 <div class="flex w-full max-w-sm rounded-xl overflow-hidden font-bold text-sm h-12">
-                    <button class="w-1/2 bg-[#1a65ff] hover:bg-blue-600 text-white transition-colors">Buy Now</button>
-                    <button class="w-1/2 bg-white hover:bg-gray-100 text-[#1a65ff] transition-colors">Put In Cart</button>
+                    <a href="{{ route('cart') }}" class="w-1/2 bg-[#1a65ff] hover:bg-blue-600 text-white transition-colors text-center py-3">Buy Now</a>
+                    <a href="{{ route('cart') }}" class="w-1/2 bg-white hover:bg-gray-100 text-[#1a65ff] transition-colors text-center py-3">Put In Cart</a>
                 </div>
             </div>
         </div>

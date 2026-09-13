@@ -18,7 +18,10 @@ searchInput?.addEventListener('input', (event) => {
 });
 
 document.querySelectorAll('[data-wishlist]').forEach((button) => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
         const isSelected = button.getAttribute('aria-pressed') === 'true';
         button.setAttribute('aria-pressed', String(!isSelected));
         button.textContent = isSelected ? '♡' : '♥';

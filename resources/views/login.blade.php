@@ -15,16 +15,11 @@
             <section class="auth-panel relative flex min-h-screen w-full flex-col overflow-hidden bg-black lg:w-1/2" aria-label="Authentication">
                 <div class="auth-pattern pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
-                <a class="relative z-10 flex w-fit items-center gap-3 px-7 py-7 sm:px-10 sm:py-9" href="{{ url('/') }}" aria-label="JT Ponsel home">
-                    <span class="logo-mark" aria-hidden="true">
-                        <svg viewBox="0 0 48 48" fill="none">
-                            <circle cx="24" cy="24" r="23" fill="#0B0B0B" stroke="#F4F4F4" stroke-width="2"/>
-                            <path d="M11 29.5C15.7 18.1 27.8 13.2 37.4 18.4C40.1 19.8 42.1 22 43 24.6" stroke="#2685E8" stroke-width="6" stroke-linecap="round"/>
-                            <path d="M8.5 24.5C13.5 34.7 25.7 38.1 35.2 31.9C37.7 30.3 39.5 28.2 40.4 25.8" stroke="#F4F4F4" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M18 16.5V29.5C18 32.5 20.3 34 23 34C25.5 34 27.5 32.4 27.5 29.5V16.5M15 16.5H30" stroke="#F4F4F4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                <a class="auth-brand relative z-10 flex w-fit items-center gap-3 px-7 py-7 sm:px-10 sm:py-9" href="{{ route('home') }}" aria-label="JT Ponsel home">
+                    <span class="brand-icon" aria-hidden="true">
+                        <svg viewBox="0 0 40 40"><path d="M10 4h20a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 13h14M20 13v14M13 27h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
                     </span>
-                    <span class="text-xl font-bold tracking-tight sm:text-2xl">JT Ponsel</span>
+                    <span class="auth-brand-text text-xl font-bold tracking-tight sm:text-2xl">JT<span class="brand-dot">.</span></span>
                 </a>
 
                 <div class="auth-viewport relative z-10 flex flex-1 items-start overflow-hidden px-7 pb-10 pt-14 sm:px-10 sm:pt-20">
@@ -34,14 +29,15 @@
                                 <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">User Sign in</h1>
                                 <p class="mt-4 text-sm text-white/80 sm:text-base">
                                     Don't have an account?
-                                    <button class="ml-1 font-semibold text-white underline underline-offset-4 transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white" type="button" data-switch-auth="signup">Create Account</button>
+                                    <button class="auth-switch ml-1 font-semibold text-white underline underline-offset-4 transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white" type="button" data-switch-auth="signup">Create Account</button>
                                 </p>
 
-                                <form class="mt-10 flex flex-col gap-4" action="#" method="post" data-auth-form>
+                                <form class="mt-10 flex flex-col gap-4" action="{{ route('login.submit') }}" method="post" data-auth-form>
+                                    @csrf
                                     <label class="sr-only" for="signin-email">Email</label>
                                     <div class="auth-input">
                                         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6.5h16v11H4zM4 7l8 6 8-6" /></svg>
-                                        <input id="signin-email" name="email" type="email" placeholder="Email." autocomplete="email" required>
+                                        <input id="signin-email" name="email" type="text" placeholder="Email or admin username." autocomplete="username" required>
                                     </div>
 
                                     <label class="sr-only" for="signin-password">Password</label>
@@ -78,7 +74,8 @@
                                 <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Create Account</h1>
                                 <p class="mt-4 text-sm text-white/80 sm:text-base">Join JT Ponsel today.</p>
 
-                                <form class="mt-10 flex flex-col gap-4" action="#" method="post" data-auth-form>
+                                <form class="mt-10 flex flex-col gap-4" action="{{ route('login.submit') }}" method="post" data-auth-form>
+                                    @csrf
                                     <label class="sr-only" for="signup-name">Name</label>
                                     <div class="auth-input">
                                         <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c.8-3.1 3.2-4.8 7-4.8s6.2 1.7 7 4.8"/></svg>
@@ -108,7 +105,7 @@
 
                                 <p class="mt-7 text-center text-sm text-white/80 sm:text-base">
                                     Already have an account?
-                                    <button class="ml-1 font-semibold text-white underline underline-offset-4 transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white" type="button" data-switch-auth="signin">Sign In</button>
+                                    <button class="auth-switch ml-1 font-semibold text-white underline underline-offset-4 transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white" type="button" data-switch-auth="signin">Sign In</button>
                                 </p>
                             </div>
                         </div>

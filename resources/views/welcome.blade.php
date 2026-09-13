@@ -37,13 +37,13 @@
                     <p class="hero-line">Pelanggan senang kita<br>senang</p>
                     <div class="hero-actions">
                         <a class="button button-dark" href="featured-product">Learn More <span>↗</span></a>
-                        <a class="button button-outline" href="/login">ntr kasi nma <span>↗</span></a>
+                        <a class="button button-outline" href="/login">login admin <span>↗</span></a>
                     </div>
                 </div>
                 <div class="hero-art">
                     <span class="hero-art-label">NEW / 2026</span>
                     <div class="hero-ring"></div>
-                    <img src="https://images.unsplash.com/photo-1592286927505-2fdc8f7d2d2c?auto=format&fit=crop&w=900&q=90" alt="Light blue smartphone">
+                    <img src="{{ Vite::asset('resources/images/phones/Pova 7 5G.png') }}" alt="TECNO POVA 7 5G smartphone">
                     <span class="hero-art-note">SERIES<br>01 — 05</span>
                 </div>
             </section>
@@ -98,19 +98,19 @@
                     </div>
                     <div class="product-grid">
                         <article class="product-card">
-                            <button class="favorite" aria-label="Add product 1 to favorites">♡</button>
-                            <div class="product-image"><img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=90" alt="Black smartphone"></div>
-                            <div class="product-info"><p>product 1</p><h3>Rpxx.xxx.xxx</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(9)</small></div></div>
+                            <button class="favorite" aria-label="Add Samsung Galaxy A17 5G to favorites">♡</button>
+                            <div class="product-image"><img src="{{ Vite::asset('resources/images/phones/Galaxy A17 5G.png') }}" alt="Samsung Galaxy A17 5G smartphone"></div>
+                            <div class="product-info"><p>Samsung</p><h3>Galaxy A17 5G</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(9)</small></div></div>
                         </article>
                         <article class="product-card">
-                            <button class="favorite" aria-label="Add product 2 to favorites">♡</button>
-                            <div class="product-image"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=90" alt="Modern smartphone"></div>
-                            <div class="product-info"><p>product 1</p><h3>Rpxx.xxx.xxx</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(5)</small></div></div>
+                            <button class="favorite" aria-label="Add iPhone 17 to favorites">♡</button>
+                            <div class="product-image"><img src="{{ Vite::asset('resources/images/phones/Iphone 17.png') }}" alt="Apple iPhone 17 smartphone"></div>
+                            <div class="product-info"><p>Apple</p><h3>iPhone 17</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(5)</small></div></div>
                         </article>
                         <article class="product-card">
-                            <button class="favorite" aria-label="Add product 3 to favorites">♡</button>
-                            <div class="product-image"><img src="https://images.unsplash.com/photo-1607936854279-55e8c4f3f5ec?auto=format&fit=crop&w=800&q=90" alt="White smartphone"></div>
-                            <div class="product-info"><p>product 1</p><h3>Rpxx.xxx.xxx</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(8)</small></div></div>
+                            <button class="favorite" aria-label="Add TECNO POVA 7 5G to favorites">♡</button>
+                            <div class="product-image"><img src="{{ Vite::asset('resources/images/phones/Pova 7 5G.png') }}" alt="TECNO POVA 7 5G smartphone"></div>
+                            <div class="product-info"><p>TECNO</p><h3>POVA 7 5G</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(8)</small></div></div>
                         </article>
                     </div>
                 </div>

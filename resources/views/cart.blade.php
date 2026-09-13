@@ -25,8 +25,10 @@
             class="flex items-center gap-3 font-display text-xs tracking-widest uppercase">
             <span class="text-xl">&larr;</span> Home / Cart
         </a>
-        <img src="#" alt="">
-        <span>JT PONSEL</span>
+        <a href="{{ route('home') }}" class="brand-mark" aria-label="JT Ponsel home">
+            <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M10 4h20a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 13h14M20 13v14M13 27h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+            <span>JT<span class="brand-dot">.</span></span>
+        </a>
     </header>
 
     {{-- Main --}}
@@ -73,7 +75,7 @@
                                 </button>
                             </div>
 
-                            <span class="text-lg font-bold ml-110">Rp 199.000</span>
+                            <span class="text-lg font-bold ml-auto">Rp 199.000</span>
                         </div>
                     </div>
                 </div>
@@ -119,7 +121,7 @@
                                 </button>
                             </div>
 
-                            <span class="text-lg font-bold ml-110">Rp 199.000</span>
+                            <span class="text-lg font-bold ml-auto">Rp 199.000</span>
                         </div>
                     </div>
                 </div>
@@ -165,7 +167,7 @@
                                 </button>
                             </div>
 
-                            <span class="text-lg font-bold ml-110">Rp 199.000</span>
+                            <span class="text-lg font-bold ml-auto">Rp 199.000</span>
                         </div>
                     </div>
                 </div>
@@ -197,10 +199,10 @@
                 <span>Rp 0</span>
             </div>
 
-            <button type="button"
+            <a href="{{ route('pembayaran') }}"
                 class="w-full bg-[#ffffff] text-black font-bold py-2 px-4 rounded mt-6 hover:bg-[#e69f1f] transition duration-300">
                 Checkout
-            </button>
+            </a>
         </section>
     </main>
 </body>

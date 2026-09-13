@@ -21,11 +21,19 @@
 @layer components {
     .auth-shell {
         display: flex;
+        min-height: 100vh;
+        background: #050505;
     }
 
     .auth-panel {
+        position: relative;
         isolation: isolate;
         min-width: 0;
+        width: 50%;
+        min-height: 100vh;
+        padding-bottom: 48px;
+        background: #050505;
+        overflow: hidden;
     }
 
     .auth-pattern {
@@ -34,23 +42,40 @@
         opacity: 0.55;
     }
 
-    .logo-mark {
-        display: block;
-        width: 43px;
-        height: 43px;
+    .auth-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.9rem;
+        color: #fff;
+        text-decoration: none;
     }
 
-    .logo-mark svg {
-        display: block;
-        width: 100%;
-        height: 100%;
+    .brand-icon {
+        display: grid;
+        width: 31px;
+        height: 31px;
+        place-items: center;
     }
 
-    /* --- sliding auth mechanism --- */
+    .brand-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .brand-dot {
+        color: #2685e8;
+    }
+
+    .auth-brand-text {
+        font-size: clamp(1.6rem, 1.5vw + 1rem, 2.3rem);
+        font-weight: 700;
+        letter-spacing: -0.08em;
+    }
 
     .auth-viewport {
         min-width: 0;
         overflow: hidden;
+        padding-top: 2.25rem;
     }
 
     .auth-track {
@@ -65,28 +90,67 @@
         min-width: 0;
         width: 50%;
         flex: 0 0 50%;
+        padding: 0 clamp(1.25rem, 3vw, 3.5rem);
+        transition: opacity 180ms ease, visibility 180ms ease;
     }
 
-    /* --- end sliding auth mechanism --- */
+    .auth-slide[aria-hidden='true'] {
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
+    }
 
     .auth-form-wrap {
-        width: min(100%, 430px);
+        width: min(100%, 560px);
+        margin-left: clamp(1rem, 2vw, 2rem);
+    }
+
+    .auth-form-wrap h1 {
+        margin: 0;
+        font-size: clamp(3rem, 4vw, 5.25rem);
+        line-height: 0.96;
+        font-weight: 800;
+        letter-spacing: -0.08em;
+    }
+
+    .auth-form-wrap p {
+        margin: 1.2rem 0 0;
+        color: rgb(255 255 255 / 78%);
+    }
+
+    .auth-form-wrap .auth-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-left: 0.2rem;
+        border: none;
+        background: transparent;
+        padding: 0;
+        color: #fff;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+
+    .auth-form-wrap .auth-switch:hover {
+        opacity: 0.8;
     }
 
     .auth-input {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        min-height: 58px;
+        gap: 0.8rem;
+        min-height: 64px;
         padding: 0 1.25rem;
         border-radius: 9999px;
-        background: #e8e8e8;
+        background: #f2f2f2;
         color: #111;
-        transition: box-shadow 150ms ease;
+        transition: box-shadow 150ms ease, transform 150ms ease;
     }
 
     .auth-input:focus-within {
         box-shadow: 0 0 0 3px rgb(255 255 255 / 35%);
+        transform: translateY(-1px);
     }
 
     .auth-input svg {
@@ -94,7 +158,7 @@
         height: 20px;
         flex: 0 0 auto;
         fill: none;
-        stroke: #626262;
+        stroke: #3c3c3c;
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-width: 1.7;
@@ -107,30 +171,30 @@
         outline: 0;
         background: transparent;
         color: #151515;
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     .auth-input input::placeholder {
-        color: #777;
+        color: #6e6e6e;
         opacity: 1;
     }
 
     .auth-button {
         display: flex;
-        min-height: 58px;
+        min-height: 62px;
         align-items: center;
         justify-content: center;
         border: 0;
         border-radius: 9999px;
-        background: #696969;
+        background: #5b5b5b;
         color: #fff;
-        font-size: 0.95rem;
+        font-size: 1rem;
         font-weight: 700;
         transition: background-color 150ms ease, transform 150ms ease;
     }
 
     .auth-button:hover {
-        background: #7a7a7a;
+        background: #707070;
     }
 
     .auth-button:active {
@@ -156,13 +220,28 @@
 
     .auth-image {
         min-height: 100vh;
+        width: 50%;
         background-image: linear-gradient(rgb(0 0 0 / 4%), rgb(0 0 0 / 4%)), url('https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1800&q=85');
         background-position: center;
         background-size: cover;
+        background-repeat: no-repeat;
     }
 }
 
 @media (max-width: 1023px) {
+    .auth-shell {
+        display: block;
+    }
+
+    .auth-panel,
+    .auth-image {
+        width: 100%;
+    }
+
+    .auth-viewport {
+        padding-bottom: 2rem;
+    }
+
     .auth-form-wrap {
         margin: 0 auto;
     }

@@ -12,6 +12,9 @@ if (track && slides.length === 2) {
             const isVisible = isSignUp ? index === 1 : index === 0;
 
             slide.setAttribute('aria-hidden', String(!isVisible));
+            slide.style.visibility = isVisible ? 'visible' : 'hidden';
+            slide.style.opacity = isVisible ? '1' : '0';
+            slide.style.pointerEvents = isVisible ? 'auto' : 'none';
             slide.querySelectorAll('input, button, a, select, textarea').forEach((element) => {
                 element.tabIndex = isVisible ? 0 : -1;
             });
