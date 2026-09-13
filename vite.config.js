@@ -12,6 +12,11 @@ export default defineConfig({
         'resources/css/login.css',
         'resources/js/login.js',
         'resources/css/pembayaran.css',
+        'resources/css/detail.css',
+        'resources/css/cart.css',
+        'resources/js/cart.js',
+        'resources/css/featured-product.css',
+        'resources/js/featured-product.js',
     ],
             refresh: true,
             fonts: [

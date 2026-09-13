@@ -11,3 +11,13 @@ Route::get('/login', function () {
 Route::get('/pembayaran', function () {
     return view('Pembayaran');
 })->name('pembayaran');
+Route::get('/detail', function () {
+    return view('detail');
+})->name('detail');
+Route::get('/Cart', function () {
+    return view('cart');
+})->name('cart');
+
+Route::get('/featured-product', function () {
+    return view('featured-product');
+})->name('featured-product');
