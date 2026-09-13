@@ -11,3 +11,7 @@ Route::get('/login', function () {
 Route::get('/Cart', function () {
     return view('cart');
 })->name('cart');
+
+Route::get('/featured-product', function () {
+    return view('featured-product');
+})->name('featured-product');

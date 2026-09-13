@@ -13,6 +13,8 @@ export default defineConfig({
         'resources/js/login.js',
         'resources/css/cart.css',
         'resources/js/cart.js',
+        'resources/css/featured-product.css',
+        'resources/js/featured-product.js',
     ],
             refresh: true,
             fonts: [
