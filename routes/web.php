@@ -8,6 +8,9 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
+Route::get('/Cart', function () {
+    return view('cart');
+})->name('cart');
 
 Route::get('/featured-product', function () {
     return view('featured-product');
