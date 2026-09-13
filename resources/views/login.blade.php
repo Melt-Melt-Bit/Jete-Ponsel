@@ -9,6 +9,7 @@
 
         @vite(['resources/css/login.css', 'resources/js/login.js'])
     </head>
+    
     <body class="min-h-screen bg-black font-sans text-white antialiased">
         <main class="auth-shell min-h-screen">
             <section class="auth-panel relative flex min-h-screen w-full flex-col overflow-hidden bg-black lg:w-1/2" aria-label="Authentication">
