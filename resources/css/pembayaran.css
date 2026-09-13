@@ -1,0 +1,13 @@
+ .page-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+  .layout-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 800px) 320px;
+    gap: 32px;
+  }
+  @media (max-width: 900px) {
+    .layout-grid { grid-template-columns: 1fr; }
+  }
