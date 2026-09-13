@@ -36,7 +36,7 @@
                     <p class="hero-subtitle">Hidup JT Ponsel</p>
                     <p class="hero-line">Pelanggan senang kita<br>senang</p>
                     <div class="hero-actions">
-                        <a class="button button-dark" href="#categories">Learn More <span>↗</span></a>
+                        <a class="button button-dark" href="featured-product">Learn More <span>↗</span></a>
                         <a class="button button-outline" href="/login">ntr kasi nma <span>↗</span></a>
                     </div>
                 </div>
