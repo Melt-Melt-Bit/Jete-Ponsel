@@ -45,7 +45,7 @@
                         <a class="featured-card" href="{{ route('products.index') }}">
                             <div class="card-heading">
                                 <span>Featured Product Laptop</span>
-                                <strong>JT abcdef</strong>
+                                <strong>Dell XPS 13</strong>
                             </div>
                             <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=1200&q=90" alt="Gaming laptop with vivid RGB lighting">
                             <div class="featured-caption"><span>01</span><span>SEE PRODUCT <b>↗</b></span></div>
@@ -68,6 +68,23 @@
                             </a>
                             <a class="small-card" href="{{ route('products.index', ['category' => 'phone']) }}">
                                 <div class="card-heading"><span>Featured Product Laptop</span><strong>abcdef</strong></div>
+                            <article class="small-card">
+                                <div class="card-heading"><span>Featured Product Laptop</span><strong>Apple MacBook Pro</strong></div>
+                                <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=700&q=85" alt="Modern laptop product">
+                                <span class="card-number">02</span>
+                            </article>
+                            <article class="small-card">
+                                <div class="card-heading"><span>Featured Product Laptop</span><strong>Komputer Retro</strong></div>
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=85" alt="Retro handheld game console">
+                                <span class="card-number">03</span>
+                            </article>
+                            <article class="small-card">
+                                <div class="card-heading"><span>Featured Product Laptop</span><strong>boAT Airdopes 141</strong></div>
+                                <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=700&q=85" alt="Wireless headphones">
+                                <span class="card-number">04</span>
+                            </article>
+                            <article class="small-card">
+                                <div class="card-heading"><span>Featured Product Laptop</span><strong>Apple Iphone X</strong></div>
                                 <img src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=700&q=85" alt="Smartphone on a neutral background">
                                 <span class="card-number">05</span>
                             </a>
