@@ -1,161 +1,170 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="JT Ponsel admin dashboard">
-        <title>Admin Dashboard — JT Ponsel</title>
-        @vite(['resources/css/admin.css'])
-    </head>
-    <body class="admin-body">
-        <div class="admin-shell">
-            <aside class="admin-sidebar">
-                <a class="admin-brand" href="{{ route('home') }}" aria-label="JT Ponsel home">
-                    <span class="admin-logo brand-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M10 4h20a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 13h14M20 13v14M13 27h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
-                    <span>JT<span class="brand-dot">.</span></span>
-                </a>
-                <p class="admin-eyebrow">CONTROL CENTRE</p>
-                <nav class="admin-nav" aria-label="Admin navigation">
-                    <a class="active" href="{{ route('admin.dashboard') }}"><span>▦</span> Overview</a>
-                    <a href="#orders"><span>↗</span> Orders</a>
-                    <a href="#catalogue"><span>◇</span> Catalogue</a>
-                    <a href="#customers"><span>◎</span> Customers</a>
-                    <a href="#settings"><span>⚙</span> Settings</a>
-                </nav>
-                <div class="admin-sidebar-footer">
-                    <span class="admin-avatar">AD</span>
-                    <div><strong>Store admin</strong><small>JT Ponsel HQ</small></div>
-                </div>
-            </aside>
+@extends('layouts.store')
 
-            <main class="admin-main">
-                @if (session('admin_status'))
-                    <div class="admin-alert">{{ session('admin_status') }}</div>
-                @endif
-                @if ($errors->any())
-                    <div class="admin-alert admin-alert-error">
-                        <strong>Could not save the product.</strong>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <header class="admin-header">
-                    <div>
-                        <p class="admin-eyebrow">SUNDAY / 13 SEPTEMBER 2026</p>
-                        <h1>Good afternoon, admin.</h1>
-                    </div>
-                    <div class="admin-header-actions">
-                        <a href="{{ route('featured-product') }}">View storefront <span>↗</span></a>
-                        <a class="admin-notification" href="#notifications" aria-label="View notifications">●</a>
-                    </div>
-                </header>
+@section('title', 'Admin dashboard — JT Ponsel')
 
-                <section class="admin-metrics" aria-label="Store metrics">
-                    @foreach ($metrics as $metric)
-                        <article class="metric-card">
-                            <p>{{ $metric['label'] }}</p>
-                            <strong>{{ $metric['value'] }}</strong>
-                            <span class="{{ $metric['tone'] }}">{{ $metric['change'] }}</span>
-                        </article>
-                    @endforeach
-                </section>
+@section('header')
+    <x-site-header />
+@endsection
 
-                <section class="admin-grid">
-                    <article class="admin-panel sales-panel">
-                        <div class="panel-heading">
-                            <div><p class="admin-eyebrow">PERFORMANCE / 01</p><h2>Sales overview</h2></div>
-                            <select aria-label="Sales period"><option>Last 30 days</option><option>Last 7 days</option></select>
-                        </div>
-                        <div class="sales-chart" aria-label="Sales increased steadily over the last 30 days">
-                            <div class="chart-bars">
-                                @foreach ([42, 55, 49, 68, 61, 77, 72, 88, 81, 96, 86, 100] as $height)
-                                    <span style="height: {{ $height }}%"></span>
-                                @endforeach
-                            </div>
-                            <div class="chart-labels"><span>01 Sep</span><span>08 Sep</span><span>15 Sep</span><span>22 Sep</span><span>30 Sep</span></div>
-                        </div>
-                    </article>
+@push('scripts')
+    @vite(['resources/js/admin.js'])
+@endpush
 
-                    <article class="admin-panel top-products" id="catalogue">
-                        <div class="panel-heading"><div><p class="admin-eyebrow">CATALOGUE / 02</p><h2>Top products</h2></div><a href="{{ route('featured-product') }}">View all ↗</a></div>
-                        @foreach ($topProducts as $product)
-                            <div class="top-product">
-                                <span class="product-rank">{{ $loop->iteration }}</span>
-                                <div><strong>{{ $product['name'] }}</strong><small>{{ $product['category'] }} · {{ $product['sold'] }} sold</small></div>
-                                <span class="{{ $product['stock'] < 6 ? 'stock-low' : 'stock-ok' }}">{{ $product['stock'] }} left</span>
-                            </div>
-                        @endforeach
-                    </article>
-                </section>
-
-                <section class="admin-panel orders-panel" id="orders">
-                    <div class="panel-heading"><div><p class="admin-eyebrow">LATEST ACTIVITY / 03</p><h2>Recent orders</h2></div><a href="#orders">Manage orders ↗</a></div>
-                    <div class="orders-table-wrap">
-                        <table class="orders-table">
-                            <thead><tr><th>Order</th><th>Customer</th><th>Product</th><th>Total</th><th>Status</th></tr></thead>
-                            <tbody>
-                                @foreach ($orders as $order)
-                                    <tr><td>{{ $order['id'] }}</td><td>{{ $order['customer'] }}</td><td>{{ $order['product'] }}</td><td>{{ $order['total'] }}</td><td><span class="status status-{{ \Illuminate\Support\Str::slug($order['status']) }}">{{ $order['status'] }}</span></td></tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <section class="admin-panel catalogue-panel" id="catalogue-management">
-                    <div class="panel-heading">
-                        <div><p class="admin-eyebrow">PRODUCT MANAGEMENT / 04</p><h2>Manage catalogue</h2></div>
-                    </div>
-                    <form class="product-form" action="{{ route('admin.products.store') }}" method="post">
-                        @csrf
-                        <input name="brand" placeholder="Brand" required>
-                        <input name="name" placeholder="Product name" required>
-                        <input name="price" placeholder="Rp price" required>
-                        <input name="badge" placeholder="Badge" value="New" required>
-                        <input name="image" type="text" placeholder="Image URL or local asset path" required>
-                        <button type="submit">Add product</button>
-                    </form>
-                    <div class="admin-product-list">
-                        @foreach ($products as $product)
-                            <div class="admin-product-row {{ $product['visible'] ? '' : 'is-hidden' }}">
-                                <img class="admin-product-image" src="{{ $product['image'] }}" alt="{{ $product['alt'] }}">
-                                <div class="admin-product-copy">
-                                    <strong>{{ $product['brand'] }} {{ $product['name'] }}</strong>
-                                    <small>{{ $product['price'] }} · {{ $product['visible'] ? 'Visible in storefront' : 'Hidden from storefront' }}</small>
-                                </div>
-                                <div class="admin-product-actions">
-                                    <details>
-                                        <summary>Edit</summary>
-                                        <form class="product-edit-form" action="{{ route('admin.products.update', $product['id']) }}" method="post">
-                                            @csrf
-                                            @method('PUT')
-                                            <input name="brand" value="{{ $product['brand'] }}" required>
-                                            <input name="name" value="{{ $product['name'] }}" required>
-                                            <input name="price" value="{{ $product['price'] }}" required>
-                                            <input name="badge" value="{{ $product['badge'] }}" required>
-                                            <input name="image" type="text" value="{{ $product['image'] }}" required>
-                                            <button type="submit">Save</button>
-                                        </form>
-                                    </details>
-                                    <form action="{{ route('admin.products.visibility', $product['id']) }}" method="post">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit">{{ $product['visible'] ? 'Hide' : 'Show' }}</button>
-                                    </form>
-                                    <form action="{{ route('admin.products.destroy', $product['id']) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="danger" type="submit">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </section>
-            </main>
+@section('content')
+    <main class="mx-auto max-w-7xl px-5 py-10 md:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-[.2em] text-blue-300">Store administration</p>
+                <h1 class="mt-2 text-3xl font-bold">Dashboard</h1>
+            </div>
+            <p class="text-sm text-white/65">Signed in as {{ auth()->user()->name }}</p>
         </div>
-    </body>
-</html>
+
+        @if (session('admin_status'))
+            <p class="mt-6 rounded-lg bg-emerald-900/50 p-4 text-emerald-100" role="status">{{ session('admin_status') }}</p>
+        @endif
+        @if ($errors->any())
+            <div class="mt-6 rounded-lg bg-red-950/70 p-4 text-red-100" role="alert">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
+
+        <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Store metrics">
+            @foreach ($metrics as $metric)
+                <article class="rounded-xl border border-white/10 bg-white/5 p-5">
+                    <p class="text-sm text-white/60">{{ $metric['label'] }}</p>
+                    <p class="mt-2 text-3xl font-bold">{{ $metric['value'] }}</p>
+                </article>
+            @endforeach
+        </section>
+
+        <section class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6" id="orders">
+            <div class="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-white/55">Order management</p>
+                    <h2 class="mt-2 text-2xl font-bold">Recent orders</h2>
+                </div>
+                <p class="text-sm text-white/60">Pay-at-pickup orders remain unpaid until collected.</p>
+            </div>
+            <div class="mt-6 overflow-x-auto">
+                <table class="w-full min-w-[48rem] text-left text-sm">
+                    <thead class="text-white/55"><tr><th class="pb-3">Order</th><th class="pb-3">Customer</th><th class="pb-3">Items</th><th class="pb-3">Total</th><th class="pb-3">Status</th><th class="pb-3">Update</th></tr></thead>
+                    <tbody class="divide-y divide-white/10">
+                        @forelse ($orders as $order)
+                            <tr>
+                                <td class="py-4 font-semibold">{{ $order->order_number }}</td>
+                                <td class="py-4">{{ $order->customer_name }}<br><span class="text-xs text-white/55">{{ $order->customer_email }}</span></td>
+                                <td class="py-4">{{ $order->items->sum('quantity') }}</td>
+                                <td class="py-4">Rp{{ number_format($order->total, 0, ',', '.') }}</td>
+                                <td class="py-4 capitalize">{{ str_replace('_', ' ', $order->status) }}</td>
+                                <td class="py-4">
+                                    @if ($order->status === 'pending')
+                                        <form class="flex gap-2" action="{{ route('admin.orders.status', $order) }}" method="post">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select class="rounded-md bg-slate-900 px-2 py-2" name="status" aria-label="New status for {{ $order->order_number }}">
+                                                <option value="ready_for_pickup">Ready for pickup</option>
+                                                <option value="cancelled">Cancel</option>
+                                            </select>
+                                            <button class="rounded-md bg-white px-3 py-2 font-semibold text-black" type="submit">Save</button>
+                                        </form>
+                                    @elseif ($order->status === 'ready_for_pickup')
+                                        <form class="flex gap-2" action="{{ route('admin.orders.status', $order) }}" method="post">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select class="rounded-md bg-slate-900 px-2 py-2" name="status" aria-label="New status for {{ $order->order_number }}">
+                                                <option value="completed">Complete pickup</option>
+                                                <option value="cancelled">Cancel</option>
+                                            </select>
+                                            <button class="rounded-md bg-white px-3 py-2 font-semibold text-black" type="submit">Save</button>
+                                        </form>
+                                    @else
+                                        <span class="text-white/50">Closed</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td class="py-5 text-white/60" colspan="6">No orders have been placed yet.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6" id="products">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-white/55">Catalogue</p>
+                <h2 class="mt-2 text-2xl font-bold">Add a product</h2>
+            </div>
+            <form class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" action="{{ route('admin.products.store') }}" method="post">
+                @csrf
+                <label class="flex flex-col gap-2 text-sm">SKU<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="sku" value="{{ old('sku') }}" required></label>
+                <label class="flex flex-col gap-2 text-sm">Brand<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="brand" value="{{ old('brand') }}" required></label>
+                <label class="flex flex-col gap-2 text-sm">Name<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="name" value="{{ old('name') }}" required></label>
+                <label class="flex flex-col gap-2 text-sm">Category
+                    <select class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="category" required>
+                        <option value="phone">Phone</option><option value="earphone">Earphone</option><option value="accessory">Accessory</option>
+                    </select>
+                </label>
+                <label class="flex flex-col gap-2 text-sm">Price (IDR)<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="price" type="number" min="1" value="{{ old('price') }}" required></label>
+                <label class="flex flex-col gap-2 text-sm">Stock<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="stock" type="number" min="0" value="{{ old('stock', 0) }}" required></label>
+                <label class="flex flex-col gap-2 text-sm">Badge<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="badge" value="{{ old('badge') }}"></label>
+                <label class="flex flex-col gap-2 text-sm">Image path<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="image_path" value="{{ old('image_path') }}" placeholder="resources/images/phones/..." data-image-path="create-product" required></label>
+                <img class="h-20 w-20 rounded bg-white object-contain p-2" data-image-preview="create-product" alt="Selected product image preview" hidden>
+                <label class="flex flex-col gap-2 text-sm sm:col-span-2 lg:col-span-3">Description<textarea class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="description" rows="2">{{ old('description') }}</textarea></label>
+                <button class="w-fit rounded-lg bg-white px-5 py-3 font-semibold text-black" type="submit">Create product</button>
+            </form>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold">Manage products</h2>
+            <div class="mt-5 flex flex-col gap-4">
+                @forelse ($products as $product)
+                    <details class="rounded-xl border border-white/10 bg-white/5 p-5">
+                        <summary class="flex cursor-pointer flex-wrap items-center justify-between gap-4 font-semibold">
+                            <span>{{ $product->brand }} {{ $product->name }} <span class="font-normal text-white/60">· {{ $product->sku }} · Rp{{ number_format($product->price, 0, ',', '.') }}</span></span>
+                            <span class="{{ $product->is_active ? 'text-emerald-300' : 'text-white/50' }}">{{ $product->is_active ? 'Visible' : 'Hidden' }} · Stock {{ $product->stock }}</span>
+                        </summary>
+                        <form class="mt-5 grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-2 lg:grid-cols-3" action="{{ route('admin.products.update', $product) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <label class="flex flex-col gap-2 text-sm">SKU<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="sku" value="{{ $product->sku }}" required></label>
+                            <label class="flex flex-col gap-2 text-sm">Brand<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="brand" value="{{ $product->brand }}" required></label>
+                            <label class="flex flex-col gap-2 text-sm">Name<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="name" value="{{ $product->name }}" required></label>
+                            <label class="flex flex-col gap-2 text-sm">Category
+                                <select class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="category" required>
+                                    @foreach (['phone' => 'Phone', 'earphone' => 'Earphone', 'accessory' => 'Accessory'] as $value => $label)
+                                        <option value="{{ $value }}" @selected($product->category === $value)>{{ $label }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                            <label class="flex flex-col gap-2 text-sm">Price (IDR)<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="price" type="number" min="1" value="{{ $product->price }}" required></label>
+                            <label class="flex flex-col gap-2 text-sm">Stock<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="stock" type="number" min="0" value="{{ $product->stock }}" required></label>
+                            <label class="flex flex-col gap-2 text-sm">Badge<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="badge" value="{{ $product->badge }}"></label>
+                            <label class="flex flex-col gap-2 text-sm">Image path<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="image_path" value="{{ $product->image_path }}" data-image-path="product-{{ $product->id }}" required></label>
+                            <img class="h-20 w-20 rounded bg-white object-contain p-2" data-image-preview="product-{{ $product->id }}" alt="Selected product image preview" hidden>
+                            <label class="flex flex-col gap-2 text-sm sm:col-span-2 lg:col-span-3">Description<textarea class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="description" rows="2">{{ $product->description }}</textarea></label>
+                            <button class="w-fit rounded-lg bg-white px-5 py-3 font-semibold text-black" type="submit">Save changes</button>
+                        </form>
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <form action="{{ route('admin.products.visibility', $product) }}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <button class="rounded-lg border border-white/20 px-4 py-2 text-sm" type="submit">{{ $product->is_active ? 'Hide from storefront' : 'Show in storefront' }}</button>
+                            </form>
+                            <form action="{{ route('admin.products.destroy', $product) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="rounded-lg border border-red-300/40 px-4 py-2 text-sm text-red-200" type="submit">Delete product</button>
+                            </form>
+                        </div>
+                    </details>
+                @empty
+                    <p class="rounded-xl border border-white/10 p-6 text-white/60">No products in the catalogue yet.</p>
+                @endforelse
+            </div>
+        </section>
+    </main>
+@endsection
