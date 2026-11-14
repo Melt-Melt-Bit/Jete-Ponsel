@@ -1,208 +1,87 @@
-<!DOCTYPE html>
-<html lang=" {{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.store')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#050505">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('title', 'Your cart — JT Ponsel')
 
-    <title>Shopping Cart - {{ config('app.name', 'JT Ponsel') }}</title>
+@section('header')
+    <x-site-header />
+@endsection
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@500;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+@section('content')
+    <main class="mx-auto max-w-6xl px-5 py-10 md:px-8">
+        <h1 class="text-3xl font-bold">Your cart</h1>
+        <p class="mt-2 text-sm text-white/65">Review item quantities before pickup checkout.</p>
 
-    @vite(['resources/css/cart.css', 'resources/js/cart.js'])
-</head>
+        @if (session('status'))
+            <p class="mt-6 rounded-lg bg-emerald-900/50 p-4 text-emerald-100" role="status">{{ session('status') }}</p>
+        @endif
+        @if (session('cart_notice'))
+            <p class="mt-6 rounded-lg bg-amber-900/50 p-4 text-amber-100" role="status">{{ session('cart_notice') }}</p>
+        @endif
+        @if ($errors->any())
+            <div class="mt-6 rounded-lg bg-red-950/70 p-4 text-red-100" role="alert">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
 
-<body class="min-h-screen bg-black font-sans text-white antialiased">
-
-    {{-- Header --}}
-    <header class="Cart-Header">
-        <a href="{{ url()->previous() }}"
-            class="flex items-center gap-3 font-display text-xs tracking-widest uppercase">
-            <span class="text-xl">&larr;</span> Home / Cart
-        </a>
-        <a href="{{ route('home') }}" class="brand-mark" aria-label="JT Ponsel home">
-            <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M10 4h20a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 13h14M20 13v14M13 27h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
-            <span>JT<span class="brand-dot">.</span></span>
-        </a>
-    </header>
-
-    {{-- Main --}}
-    <main class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 p-8 items-start">
-        {{-- Left --}}
-        <section class="Cart-Panel">
-            <h1>Shopping Cart</h1>
-            <hr class="border-2 border-[#A7A7A7] mb-3">
-
-            {{-- Item 1 --}}
-            <div class="Cart-Item">
-
-                <div class="flex items-center gap-4">
-                    <input type="checkbox" class="w-5 h-5 border-[#A7A7A7] rounded-sm focus:ring-0 focus:outline-none">
-
-                    <img src="https://www.obastyle.com/24363-large_default/colour-xiaomi-redmi-11a-12c-orange.jpg"
-                        alt="" class="border-2 border-black-300 w-30 h-30">
-
-                    <div class="flex-1 self-start flex flex-col justify-between">
-                        <div class="flex items-center justify-between">
-                            <span>Casing HP Redmi 12C Terbaik <p class=" font-light text-sm">Casing ini merupakan casing
-                                    yang dipakai oleh <br> handphone Redmi 12C....</p></span>
-                            <a href="#"><i class="fa-solid fa-trash"></i></a>
-                        </div>
-
-                        <div class="flex items-center gap-10 w-full mt-2">
-                            <select name="" id="" class="border-2 border-black-300 rounded text-black mt-2 py-1 px-3">
-                                <option value="Orange">Orange</option>
-                                <option value="Hitam">Hitam</option>
-                                <option value="Blue">Blue</option>
-                            </select>
-
-                            <div class="flex items-center mt-2 border-2 border-black-300 rounded">
-                                <button type="button" id="btnKurang" class=" text-black py-1 px-3 rounded-l">
-                                    -
-                                </button>
-
-                                <span class=" text-black py-1 px-3" id="qty">
-                                    1
-                                </span>
-
-                                <button type="button" id="btnTambah" class=" text-black py-1 px-3 rounded-r">
-                                    +
-                                </button>
+        @if ($cartItems === [])
+            <section class="mt-8 rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
+                <p class="text-lg font-semibold">Your cart is empty.</p>
+                <a class="mt-5 inline-flex rounded-lg bg-white px-5 py-3 font-semibold text-black" href="{{ route('products.index') }}">Browse products</a>
+            </section>
+        @else
+            <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_21rem]">
+                <section class="flex flex-col gap-4" aria-label="Cart items">
+                    @foreach ($cartItems as $item)
+                        <article class="grid gap-5 rounded-xl border border-white/10 bg-white p-5 text-slate-950 sm:grid-cols-[8rem_1fr]">
+                            <img class="h-32 w-full rounded-lg bg-slate-100 object-contain p-3" src="{{ $item['product']->image_url }}" alt="{{ $item['product']->brand }} {{ $item['product']->name }}">
+                            <div class="flex flex-col justify-between gap-4">
+                                <div class="flex flex-wrap items-start justify-between gap-3">
+                                    <div>
+                                        <p class="text-xs font-bold uppercase tracking-widest text-slate-500">{{ $item['product']->brand }}</p>
+                                        <h2 class="mt-1 text-lg font-bold">{{ $item['product']->name }}</h2>
+                                        <p class="mt-1 text-sm text-slate-600">{{ $item['product']->formatted_price }} each</p>
+                                    </div>
+                                    <p class="font-bold">Rp{{ number_format($item['line_total'], 0, ',', '.') }}</p>
+                                </div>
+                                <div class="flex items-center justify-between gap-4">
+                                    <form class="flex items-center gap-2" action="{{ route('cart.update', $item['product']) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+                                        <label class="text-sm font-semibold" for="quantity-{{ $item['product']->id }}">Qty</label>
+                                        <input class="w-20 rounded-md border border-slate-300 px-2 py-1" id="quantity-{{ $item['product']->id }}" type="number" name="quantity" min="1" max="{{ $item['product']->stock }}" value="{{ $item['quantity'] }}" required>
+                                        <button class="text-sm font-semibold text-blue-700 underline" type="submit">Update</button>
+                                    </form>
+                                    <form action="{{ route('cart.destroy', $item['product']) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="text-sm font-semibold text-red-700 underline" type="submit">Remove</button>
+                                    </form>
+                                </div>
                             </div>
+                        </article>
+                    @endforeach
+                </section>
 
-                            <span class="text-lg font-bold ml-auto">Rp 199.000</span>
-                        </div>
+                <aside class="h-fit rounded-xl bg-white p-6 text-slate-950">
+                    <h2 class="text-lg font-bold">Order summary</h2>
+                    <div class="mt-5 flex justify-between gap-4 text-sm">
+                        <span>Subtotal</span>
+                        <span>Rp{{ number_format($subtotal, 0, ',', '.') }}</span>
                     </div>
-                </div>
-            </div>
-
-
-
-            {{-- Item 2 --}}
-            <div class="Cart-Item">
-
-                <div class="flex items-center gap-4">
-                    <input type="checkbox" class="w-5 h-5 border-[#A7A7A7] rounded-sm focus:ring-0 focus:outline-none">
-
-                    <img src="https://www.obastyle.com/24363-large_default/colour-xiaomi-redmi-11a-12c-orange.jpg"
-                        alt="" class="border-2 border-black-300 w-30 h-30">
-
-                    <div class="flex-1 self-start flex flex-col justify-between">
-                        <div class="flex items-center justify-between">
-                            <span>Casing HP Redmi 12C Terbaik <p class=" font-light text-sm">Casing ini merupakan
-                                    casing
-                                    yang dipakai oleh <br> handphone Redmi 12C....</p></span>
-                            <a href="#"><i class="fa-solid fa-trash"></i></a>
-                        </div>
-
-                        <div class="flex items-center gap-10 w-full mt-2">
-                            <select name="" id="" class="border-2 border-black-300 rounded text-black mt-2 py-1 px-3">
-                                <option value="Orange">Orange</option>
-                                <option value="Hitam">Hitam</option>
-                                <option value="Blue">Blue</option>
-                            </select>
-
-                            <div class="flex items-center mt-2 border-2 border-black-300 rounded">
-                                <button type="button" id="btnKurang" class=" text-black py-1 px-3 rounded-l">
-                                    -
-                                </button>
-
-                                <span class=" text-black py-1 px-3" id="qty">
-                                    1
-                                </span>
-
-                                <button type="button" id="btnTambah" class=" text-black py-1 px-3 rounded-r">
-                                    +
-                                </button>
-                            </div>
-
-                            <span class="text-lg font-bold ml-auto">Rp 199.000</span>
-                        </div>
+                    <div class="mt-3 flex justify-between gap-4 text-sm text-slate-600">
+                        <span>Pickup</span>
+                        <span>Free</span>
                     </div>
-                </div>
-            </div>
-
-
-
-            {{-- Item 3 --}}
-            <div class="Cart-Item">
-
-                <div class="flex items-center gap-4">
-                    <input type="checkbox" class="w-5 h-5 border-[#A7A7A7] rounded-sm focus:ring-0 focus:outline-none">
-
-                    <img src="https://www.obastyle.com/24363-large_default/colour-xiaomi-redmi-11a-12c-orange.jpg"
-                        alt="" class="border-2 border-black-300 w-30 h-30">
-
-                    <div class="flex-1 self-start flex flex-col justify-between">
-                        <div class="flex items-center justify-between">
-                            <span>Casing HP Redmi 12C Terbaik <p class=" font-light text-sm">Casing ini
-                                    merupakan casing
-                                    yang dipakai oleh <br> handphone Redmi 12C....</p></span>
-                            <a href="#"><i class="fa-solid fa-trash"></i></a>
-                        </div>
-
-                        <div class="flex items-center gap-10 w-full mt-2">
-                            <select name="" id="" class="border-2 border-black-300 rounded text-black mt-2 py-1 px-3">
-                                <option value="Orange">Orange</option>
-                                <option value="Hitam">Hitam</option>
-                                <option value="Blue">Blue</option>
-                            </select>
-
-                            <div class="flex items-center mt-2 border-2 border-black-300 rounded">
-                                <button type="button" id="btnKurang" class=" text-black py-1 px-3 rounded-l">
-                                    -
-                                </button>
-
-                                <span class=" text-black py-1 px-3" id="qty">
-                                    1
-                                </span>
-
-                                <button type="button" id="btnTambah" class=" text-black py-1 px-3 rounded-r">
-                                    +
-                                </button>
-                            </div>
-
-                            <span class="text-lg font-bold ml-auto">Rp 199.000</span>
-                        </div>
+                    <hr class="my-5 border-slate-200">
+                    <div class="flex justify-between gap-4 font-bold">
+                        <span>Total</span>
+                        <span>Rp{{ number_format($subtotal, 0, ',', '.') }}</span>
                     </div>
-                </div>
+                    <a class="mt-6 block rounded-lg bg-slate-950 px-4 py-3 text-center font-semibold text-white hover:bg-blue-700" href="{{ route('checkout.create') }}">Continue to checkout</a>
+                </aside>
             </div>
-
-        </section>
-
-        {{-- Right --}}
-        <section class="Cart-Summary">
-            <div class="gap-2 flex items-center">
-                <input type="checkbox" class="w-5 h-5 border-[#A7A7A7] rounded-sm focus:ring-0 focus:outline-none">
-                <span>Select All</span>
-            </div>
-
-            <div class="flex items-center justify-between mt-3">
-                <span>Total Items</span>
-                <span>3</span>
-            </div>
-
-            <div class="flex items-center justify-between mt-3">
-                <span>Voucher</span>
-                <a href="#">Select or Enter Code</a>
-            </div>
-
-            <hr class="border-2 border-dashed border-[#A7A7A7] mb-3 mt-2">
-
-            <div class="flex items-center justify-between mt-3">
-                <span>Grand Total</span>
-                <span>Rp 0</span>
-            </div>
-
-            <a href="{{ route('pembayaran') }}"
-                class="w-full bg-[#ffffff] text-black font-bold py-2 px-4 rounded mt-6 hover:bg-[#e69f1f] transition duration-300">
-                Checkout
-            </a>
-        </section>
+        @endif
     </main>
-</body>
+@endsection

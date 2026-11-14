@@ -8,7 +8,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
-        <x-site-header active="home" cart-href="#best-seller" />
+        <x-site-header active="home" :cart-href="route('cart.index')" />
 
         <main>
             <section class="hero" id="home">
@@ -18,8 +18,8 @@
                     <p class="hero-subtitle">Hidup JT Ponsel</p>
                     <p class="hero-line">Pelanggan senang kita<br>senang</p>
                     <div class="hero-actions">
-                        <a class="button button-dark" href="featured-product">Learn More <span>↗</span></a>
-                        <a class="button button-outline" href="/login">login admin <span>↗</span></a>
+                        <a class="button button-dark" href="{{ route('products.index') }}">Browse products <span>↗</span></a>
+                        <a class="button button-outline" href="{{ route('login') }}">Sign in <span>↗</span></a>
                     </div>
                 </div>
                 <div class="hero-art">
@@ -42,15 +42,32 @@
                         <span class="heading-mark">✳</span>
                     </div>
                     <div class="category-layout">
-                        <article class="featured-card">
+                        <a class="featured-card" href="{{ route('products.index') }}">
                             <div class="card-heading">
                                 <span>Featured Product Laptop</span>
                                 <strong>Dell XPS 13</strong>
                             </div>
                             <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=1200&q=90" alt="Gaming laptop with vivid RGB lighting">
                             <div class="featured-caption"><span>01</span><span>SEE PRODUCT <b>↗</b></span></div>
-                        </article>
+                        </a>
                         <div class="small-card-grid">
+                            <a class="small-card" href="{{ route('products.index', ['category' => 'phone']) }}">
+                                <div class="card-heading"><span>Featured Product Laptop</span><strong>abcdef</strong></div>
+                                <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=700&q=85" alt="Modern laptop product">
+                                <span class="card-number">02</span>
+                            </a>
+                            <a class="small-card" href="{{ route('products.index', ['category' => 'phone']) }}">
+                                <div class="card-heading"><span>Featured Product Laptop</span><strong>abcdef</strong></div>
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=85" alt="Retro handheld game console">
+                                <span class="card-number">03</span>
+                            </a>
+                            <a class="small-card" href="{{ route('products.index', ['category' => 'earphone']) }}">
+                                <div class="card-heading"><span>Featured Product Laptop</span><strong>abcdef</strong></div>
+                                <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=700&q=85" alt="Wireless headphones">
+                                <span class="card-number">04</span>
+                            </a>
+                            <a class="small-card" href="{{ route('products.index', ['category' => 'phone']) }}">
+                                <div class="card-heading"><span>Featured Product Laptop</span><strong>abcdef</strong></div>
                             <article class="small-card">
                                 <div class="card-heading"><span>Featured Product Laptop</span><strong>Apple MacBook Pro</strong></div>
                                 <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=700&q=85" alt="Modern laptop product">
@@ -70,30 +87,33 @@
                                 <div class="card-heading"><span>Featured Product Laptop</span><strong>Apple Iphone X</strong></div>
                                 <img src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=700&q=85" alt="Smartphone on a neutral background">
                                 <span class="card-number">05</span>
-                            </article>
+                            </a>
                         </div>
                     </div>
 
                     <div class="seller-heading" id="best-seller">
                         <div><p class="section-kicker">FAN FAVOURITES / 02</p><h2>Best Seller</h2></div>
-                        <a class="view-all" href="#footer">View all products <span>↗</span></a>
+                        <a class="view-all" href="{{ route('products.index') }}">View all products <span>↗</span></a>
                     </div>
                     <div class="product-grid">
-                        <article class="product-card">
-                            <button class="favorite" aria-label="Add Samsung Galaxy A17 5G to favorites">♡</button>
-                            <div class="product-image"><img src="{{ Vite::asset('resources/images/phones/Galaxy A17 5G.png') }}" alt="Samsung Galaxy A17 5G smartphone"></div>
-                            <div class="product-info"><p>Samsung</p><h3>Galaxy A17 5G</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(9)</small></div></div>
-                        </article>
-                        <article class="product-card">
-                            <button class="favorite" aria-label="Add iPhone 17 to favorites">♡</button>
-                            <div class="product-image"><img src="{{ Vite::asset('resources/images/phones/Iphone 17.png') }}" alt="Apple iPhone 17 smartphone"></div>
-                            <div class="product-info"><p>Apple</p><h3>iPhone 17</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(5)</small></div></div>
-                        </article>
-                        <article class="product-card">
-                            <button class="favorite" aria-label="Add TECNO POVA 7 5G to favorites">♡</button>
-                            <div class="product-image"><img src="{{ Vite::asset('resources/images/phones/Pova 7 5G.png') }}" alt="TECNO POVA 7 5G smartphone"></div>
-                            <div class="product-info"><p>TECNO</p><h3>POVA 7 5G</h3><div class="rating"><span>☆ ☆ ☆ ☆ ☆</span><small>(8)</small></div></div>
-                        </article>
+                        @forelse ($featuredProducts as $product)
+                            <article class="product-card">
+                                <a href="{{ route('products.show', $product) }}" aria-label="View {{ $product->brand }} {{ $product->name }}">
+                                    <div class="product-image"><img src="{{ $product->image_url }}" alt="{{ $product->brand }} {{ $product->name }}"></div>
+                                    <div class="product-info">
+                                        <p>{{ $product->brand }}</p>
+                                        <h3>{{ $product->name }}</h3>
+                                        <strong>{{ $product->formatted_price }}</strong>
+                                    </div>
+                                </a>
+                                <form class="px-6 pb-6" action="{{ route('cart.store', $product) }}" method="post">
+                                    @csrf
+                                    <button class="button button-dark" type="submit" @disabled($product->stock < 1)>Add to cart</button>
+                                </form>
+                            </article>
+                        @empty
+                            <p>No products are available yet. Check back soon.</p>
+                        @endforelse
                     </div>
                 </div>
             </section>

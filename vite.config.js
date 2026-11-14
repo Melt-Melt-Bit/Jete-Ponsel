@@ -6,19 +6,15 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
     plugins: [
         laravel({
-                input: [
-        'resources/css/app.css',
-        'resources/js/app.js',
-        'resources/css/login.css',
-        'resources/js/login.js',
-        'resources/css/admin.css',
-        'resources/css/pembayaran.css',
-        'resources/css/detail.css',
-        'resources/css/cart.css',
-        'resources/js/cart.js',
-        'resources/css/featured-product.css',
-        'resources/js/featured-product.js',
-    ],
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+                'resources/js/login.js',
+                'resources/js/admin.js',
+                'resources/css/featured-product.css',
+                'resources/js/featured-product.js',
+                'resources/css/commerce.css',
+            ],
             refresh: true,
             fonts: [
                 bunny('Instrument Sans', {
