@@ -63,8 +63,8 @@
                                     <span class="h-px flex-1 bg-white/20"></span>
                                 </div>
                                 <div class="flex flex-col gap-3" aria-label="Additional sign in options">
-                                    <button class="auth-button auth-button-placeholder" type="button" aria-label="Additional sign in option"></button>
-                                    <button class="auth-button auth-button-placeholder" type="button" aria-label="Additional sign in option"></button>
+                                    <button class="auth-button auth-button-placeholder" type="button" aria-label="Additional sign in option">Google</button>
+                                    <button class="auth-button auth-button-placeholder" type="button" aria-label="Additional sign in option">Facebook</button>
                                 </div>
                             </div>
                         </div>
