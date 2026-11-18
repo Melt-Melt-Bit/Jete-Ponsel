@@ -55,6 +55,10 @@ Route::get('/Riwayat', function () {
     return view('Riwayat-Pesanan');
 })->name('riwayat');
 
+Route::get('/Profile', function () {
+    return view('profile');
+})->name('profile');
+
 Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');
 Route::put('/admin/products/{product}', [AdminController::class, 'updateProduct'])->name('admin.products.update');
 Route::patch('/admin/products/{product}/visibility', [AdminController::class, 'toggleProduct'])->name('admin.products.visibility');
