@@ -69,7 +69,7 @@
 
                 <!-- Tombol Action -->
                 <div class="flex w-full max-w-sm rounded-xl overflow-hidden font-bold text-sm h-12">
-                    <a href="{{ route('cart') }}" class="w-1/2 bg-[#1a65ff] hover:bg-blue-600 text-white transition-colors text-center py-3">Buy Now</a>
+                    <a href="{{ route('pembayaran') }}" class="w-1/2 bg-[#1a65ff] hover:bg-blue-600 text-white transition-colors text-center py-3">Buy Now</a>
                     <a href="{{ route('cart') }}" class="w-1/2 bg-white hover:bg-gray-100 text-[#1a65ff] transition-colors text-center py-3">Put In Cart</a>
                 </div>
             </div>
