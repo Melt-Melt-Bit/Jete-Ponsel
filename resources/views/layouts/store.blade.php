@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content="@yield('description', 'Shop smartphones and accessories at JT Ponsel.')">
         <title>@yield('title', 'JT Ponsel')</title>
-        @vite(['resources/css/commerce.css'])
+        @vite(['resources/css/commerce.css', 'resources/js/app.js'])
         @stack('styles')
     </head>
     <body class="min-h-screen bg-[#0a0a0b] font-sans text-white antialiased">

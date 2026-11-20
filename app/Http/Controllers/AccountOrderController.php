@@ -7,11 +7,21 @@ use Illuminate\View\View;
 
 class AccountOrderController extends Controller
 {
+    public function profile(): View
+    {
+        $section = request('section') === 'orders' ? 'orders' : 'profile';
+
+        return view('profile', [
+            'section' => $section,
+            'orders' => $section === 'orders'
+                ? auth()->user()->orders()->with('items')->latest()->paginate(10)
+                : collect(),
+        ]);
+    }
+
     public function index(): View
     {
-        $orders = auth()->user()->orders()->with('items')->latest()->paginate(10);
-
-        return view('orders.index', ['orders' => $orders]);
+        return redirect()->route('profile', ['section' => 'orders']);
     }
 
     public function show(Order $order): View

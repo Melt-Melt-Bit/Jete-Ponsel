@@ -14,7 +14,7 @@
                 <a class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/5 p-5 hover:bg-white/10" href="{{ route('account.orders.show', $order) }}">
                     <div>
                         <p class="font-semibold">{{ $order->order_number }}</p>
-                        <p class="mt-1 text-sm text-white/60">{{ $order->created_at->format('d M Y, H:i') }} · {{ $order->items->count() }} item(s)</p>
+                        <p class="mt-1 text-sm text-white/75">{{ $order->created_at->format('d M Y, H:i') }} · {{ $order->items->count() }} item(s)</p>
                     </div>
                     <div class="text-right">
                         <p class="font-semibold">{{ $order->formatted_total }}</p>

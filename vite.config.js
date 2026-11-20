@@ -14,6 +14,9 @@ export default defineConfig({
                 'resources/css/featured-product.css',
                 'resources/js/featured-product.js',
                 'resources/css/commerce.css',
+                'resources/css/login.css',
+                'resources/css/profile.css',
+                'resources/css/Riwayat-Pesanan.css',
             ],
             refresh: true,
             fonts: [

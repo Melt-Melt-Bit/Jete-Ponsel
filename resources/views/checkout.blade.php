@@ -10,7 +10,7 @@
     <main class="mx-auto max-w-6xl px-5 py-10 md:px-8">
         <a class="text-sm font-semibold text-white/70 underline underline-offset-4" href="{{ route('cart.index') }}">← Back to cart</a>
         <h1 class="mt-5 text-3xl font-bold">Pickup checkout</h1>
-        <p class="mt-2 max-w-2xl text-sm text-white/65">Place an order and pay when you collect it at the store. Online payment is not available yet.</p>
+        <p class="mt-2 max-w-2xl text-sm text-white/75">Place an order and pay when you collect it at the store. Online payment is not available yet.</p>
 
         @if ($errors->any())
             <div class="mt-6 rounded-lg border border-red-400/30 bg-red-950/60 p-4 text-red-100" role="alert">
@@ -48,7 +48,7 @@
                             <input class="mt-1 accent-blue-400" type="radio" name="payment_method" value="pay_at_pickup" checked>
                             <span><strong class="block">Pay at pickup</strong><span class="text-sm text-white/65">Available now. Payment is collected at the store.</span></span>
                         </label>
-                        <div class="flex items-start gap-3 rounded-lg border border-white/10 p-4 text-white/50" aria-disabled="true">
+                        <div class="flex items-start gap-3 rounded-lg border border-white/10 p-4 text-white/75" aria-disabled="true">
                             <input class="mt-1" type="radio" disabled>
                             <span><strong class="block">Online payment</strong><span class="text-sm">Coming later — no card details are collected.</span></span>
                         </div>

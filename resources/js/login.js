@@ -1,11 +1,13 @@
+const authShell = document.querySelector('[data-auth-shell]');
 const track = document.querySelector('[data-auth-track]');
 const slides = [...document.querySelectorAll('[data-auth-slide]')];
 const switchButtons = [...document.querySelectorAll('[data-switch-auth]')];
 
-if (track && slides.length === 2) {
+if (authShell && track && slides.length === 2) {
     const setAuthMode = (mode) => {
         const isSignUp = mode === 'signup';
 
+        authShell.classList.toggle('is-signup', isSignUp);
         track.style.transform = isSignUp ? 'translateX(-50%)' : 'translateX(0)';
 
         slides.forEach((slide, index) => {
@@ -27,5 +29,5 @@ if (track && slides.length === 2) {
         });
     });
 
-    setAuthMode('signin');
+    setAuthMode(authShell.dataset.initialMode || 'signin');
 }

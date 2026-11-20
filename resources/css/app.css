@@ -10,6 +10,35 @@ html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--ink); color: var(--ink); font-family: 'Space Grotesk', sans-serif; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; }
+:where(a, button, input):focus-visible { outline: 3px solid rgba(29,108,255,.45); outline-offset: 4px; }
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); }
+.js .reveal.reveal-delay-1 { transition-delay: 120ms; }
+.js .reveal.is-visible { opacity: 1; transform: translateY(0); }
+.featured-card, .small-card, .product-card { transition: transform 220ms cubic-bezier(.2,.7,.2,1), box-shadow 220ms ease, border-color 220ms ease; }
+.featured-card:hover, .small-card:hover, .product-card:hover { transform: translateY(-7px); box-shadow: 0 18px 38px rgba(0,0,0,.22); }
+.featured-card img, .small-card img, .product-image img { transition: transform 420ms cubic-bezier(.2,.7,.2,1); }
+.featured-card:hover img, .small-card:hover img, .product-card:hover .product-image img { transform: scale(1.035); }
+.button, .cart-button, .view-all, .main-nav a { transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease; }
+.button:hover, .cart-button:hover { transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal,
+    .js .reveal.reveal-delay-1,
+    .featured-card,
+    .small-card,
+    .product-card,
+    .featured-card img,
+    .small-card img,
+    .product-image img,
+    .button,
+    .cart-button,
+    .view-all,
+    .main-nav a {
+        transition: none;
+        transform: none;
+    }
+}
 .site-header { height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 0 5vw; background: var(--paper); }
 .brand-mark, .footer-logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; letter-spacing: -.06em; }
 .brand-icon { display: grid; place-items: center; width: 31px; height: 31px; }
