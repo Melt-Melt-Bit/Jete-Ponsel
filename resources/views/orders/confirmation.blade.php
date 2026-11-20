@@ -13,10 +13,10 @@
             <h1 class="mt-3 text-3xl font-bold">Thanks, {{ $order->customer_name }}.</h1>
             <p class="mt-3 text-white/70">Your pickup order is recorded. Pay at the store when you collect it.</p>
             <dl class="mt-8 grid gap-4 border-t border-white/10 pt-6 sm:grid-cols-2">
-                <div><dt class="text-sm text-white/60">Order number</dt><dd class="mt-1 font-semibold">{{ $order->order_number }}</dd></div>
-                <div><dt class="text-sm text-white/60">Order status</dt><dd class="mt-1 font-semibold">{{ str_replace('_', ' ', ucfirst($order->status)) }}</dd></div>
-                <div><dt class="text-sm text-white/60">Payment</dt><dd class="mt-1 font-semibold">Unpaid · pay at pickup</dd></div>
-                <div><dt class="text-sm text-white/60">Total</dt><dd class="mt-1 font-semibold">Rp{{ number_format($order->total, 0, ',', '.') }}</dd></div>
+                <div><dt class="text-sm text-white/75">Order number</dt><dd class="mt-1 font-semibold">{{ $order->order_number }}</dd></div>
+                <div><dt class="text-sm text-white/75">Order status</dt><dd class="mt-1 font-semibold">{{ str_replace('_', ' ', ucfirst($order->status)) }}</dd></div>
+                <div><dt class="text-sm text-white/75">Payment</dt><dd class="mt-1 font-semibold">Unpaid · pay at pickup</dd></div>
+                <div><dt class="text-sm text-white/75">Total</dt><dd class="mt-1 font-semibold">Rp{{ number_format($order->total, 0, ',', '.') }}</dd></div>
             </dl>
             <ul class="mt-7 flex flex-col gap-3 text-sm text-white/80">
                 @foreach ($order->items as $item)

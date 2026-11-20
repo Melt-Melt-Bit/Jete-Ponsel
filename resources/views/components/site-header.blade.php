@@ -17,7 +17,7 @@
             @if (auth()->user()->is_admin)
                 <a class="text-sm font-semibold" href="{{ route('admin.dashboard') }}">Admin</a>
             @else
-                <a class="text-sm font-semibold" href="{{ route('account.orders.index') }}">My orders</a>
+                <a class="text-sm font-semibold" href="{{ route('profile', ['section' => 'orders']) }}">My orders</a>
             @endif
             <form action="{{ route('logout') }}" method="post">
                 @csrf
@@ -27,21 +27,10 @@
             <a class="text-sm font-semibold" href="{{ route('login') }}">Sign in</a>
         @endauth
 
-        <a class="cart-button grid h-10 w-10 place-items-center rounded-full border border-slate-300" href="{{ $cartHref }}" aria-label="View cart">
-            <span aria-hidden="true">Cart</span>
-        </a>
-    </div>
-    <a class="cart-button" href="{{ $cartHref }}" aria-label="View cart">
+        <a class="cart-button" href="{{ $cartHref }}" aria-label="View cart">
         <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H6M10 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm9 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-    </a>
-
-
-    <a class="cart-button" href="{{ route('login') }}" aria-label="Profile">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-    </a>
+        </a>
+    </div>
 </header>

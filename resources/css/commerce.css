@@ -20,3 +20,52 @@ body {
 a {
     text-decoration: none;
 }
+
+:where(a, button, input):focus-visible {
+    outline: 3px solid rgba(38, 133, 232, 0.55);
+    outline-offset: 3px;
+}
+
+.js main,
+.js .site-header {
+    animation: page-enter 420ms cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.js [data-product-card],
+.js article.grid,
+.js main > section article {
+    transition: transform 220ms cubic-bezier(.2, .7, .2, 1), border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.js [data-product-card]:hover,
+.js article.grid:hover,
+.js main > section article:hover {
+    transform: translateY(-4px);
+}
+
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .js main,
+    .js .site-header,
+    .js [data-product-card],
+    .js article.grid,
+    .js main > section article {
+        animation: none;
+        transition: none;
+        transform: none;
+    }
+}

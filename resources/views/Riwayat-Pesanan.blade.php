@@ -1,38 +1,16 @@
-<!DOCTYPE html>
-<html lang="id">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Riwayat Pesanan — JT Ponsel</title>
-        @vite(['resources/css/Riwayat-Pesanan.css'])
-    </head>
-    <body>
+@extends('layouts.store')
 
-        <header class="site-header">
-            <x-brand-mark />
+@section('title', 'Riwayat Pesanan — JT Ponsel')
 
-            <nav class="main-nav" aria-label="Main navigation">
-                <a href="{{ route('home') }}">Home</a>
-                <a class="active" href="#products">Phone</a>
-                <a href="#earphones">Earphone</a>
-                <a href="#products">Tablet</a>
-                <a href="#products">Casing</a>
-                <a href="#footer">More</a>
-            </nav>
+@push('styles')
+    @vite(['resources/css/Riwayat-Pesanan.css'])
+@endpush
 
-            <a class="cart-button" href="{{ route('cart') }}" aria-label="View cart">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H6M10 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm9 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
+@section('header')
+    <x-site-header active="orders" />
+@endsection
 
-            <a class="cart-button" href="{{ route('login') }}" aria-label="Profile">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
-                    <path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                </svg>
-            </a>
-        </header>
+@section('content')
 
         @php
             $orders = [
@@ -95,7 +73,7 @@
 
                         <div class="mt-4 flex justify-end gap-2">
                             <button type="button" class="rounded bg-gray-300 px-3 py-1 text-xs font-bold hover:bg-gray-400">Lacak Resi</button>
-                            <a href="{{ route('featured-product') }}" class="rounded bg-gray-300 px-3 py-1 text-xs font-bold hover:bg-gray-400">Beli Lagi</a>
+                            <a href="{{ route('products.index') }}" class="rounded bg-gray-300 px-3 py-1 text-xs font-bold hover:bg-gray-400">Beli Lagi</a>
                         </div>
                     </article>
                 @empty
@@ -104,5 +82,4 @@
 
             </section>
         </main>
-    </body>
-</html>
+@endsection

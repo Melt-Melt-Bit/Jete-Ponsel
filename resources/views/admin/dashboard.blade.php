@@ -12,12 +12,15 @@
 
 @section('content')
     <main class="mx-auto max-w-7xl px-5 py-10 md:px-8">
-        <div class="flex flex-wrap items-end justify-between gap-4">
+        <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-[#101620] to-blue-950/50 p-7 shadow-2xl md:p-9">
+            <div class="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl"></div>
+            <div class="relative flex flex-wrap items-end justify-between gap-4">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[.2em] text-blue-300">Store administration</p>
-                <h1 class="mt-2 text-3xl font-bold">Dashboard</h1>
+                <p class="text-xs font-semibold uppercase tracking-[.24em] text-blue-300">Store administration</p>
+                <h1 class="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Dashboard</h1>
             </div>
-            <p class="text-sm text-white/65">Signed in as {{ auth()->user()->name }}</p>
+            <p class="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-white/80">Signed in as <span class="font-semibold text-white">{{ auth()->user()->name }}</span></p>
+            </div>
         </div>
 
         @if (session('admin_status'))
@@ -33,29 +36,29 @@
 
         <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Store metrics">
             @foreach ($metrics as $metric)
-                <article class="rounded-xl border border-white/10 bg-white/5 p-5">
-                    <p class="text-sm text-white/60">{{ $metric['label'] }}</p>
-                    <p class="mt-2 text-3xl font-bold">{{ $metric['value'] }}</p>
+                <article class="group rounded-2xl border border-white/10 bg-gradient-to-br from-white/[.08] to-white/[.025] p-6 shadow-lg transition duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:shadow-blue-950/30">
+                    <p class="text-sm font-medium text-white/75">{{ $metric['label'] }}</p>
+                    <p class="mt-3 text-4xl font-bold tracking-tight text-white transition-colors group-hover:text-blue-200">{{ $metric['value'] }}</p>
                 </article>
             @endforeach
         </section>
 
-        <section class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6" id="orders">
+        <section class="mt-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/[.06] to-white/[.02] p-6 shadow-xl md:p-8" id="orders">
             <div class="flex flex-wrap items-end justify-between gap-4">
                 <div>
-                    <p class="text-xs uppercase tracking-widest text-white/55">Order management</p>
+                    <p class="text-xs uppercase tracking-widest text-white/75">Order management</p>
                     <h2 class="mt-2 text-2xl font-bold">Recent orders</h2>
                 </div>
-                <p class="text-sm text-white/60">Pay-at-pickup orders remain unpaid until collected.</p>
+                <p class="text-sm text-white/75">Pay-at-pickup orders remain unpaid until collected.</p>
             </div>
             <div class="mt-6 overflow-x-auto">
                 <table class="w-full min-w-[48rem] text-left text-sm">
-                    <thead class="text-white/55"><tr><th class="pb-3">Order</th><th class="pb-3">Customer</th><th class="pb-3">Items</th><th class="pb-3">Total</th><th class="pb-3">Status</th><th class="pb-3">Update</th></tr></thead>
+                    <thead class="text-white/75"><tr><th class="pb-3">Order</th><th class="pb-3">Customer</th><th class="pb-3">Items</th><th class="pb-3">Total</th><th class="pb-3">Status</th><th class="pb-3">Update</th></tr></thead>
                     <tbody class="divide-y divide-white/10">
                         @forelse ($orders as $order)
                             <tr>
                                 <td class="py-4 font-semibold">{{ $order->order_number }}</td>
-                                <td class="py-4">{{ $order->customer_name }}<br><span class="text-xs text-white/55">{{ $order->customer_email }}</span></td>
+                                <td class="py-4">{{ $order->customer_name }}<br><span class="text-xs text-white/75">{{ $order->customer_email }}</span></td>
                                 <td class="py-4">{{ $order->items->sum('quantity') }}</td>
                                 <td class="py-4">Rp{{ number_format($order->total, 0, ',', '.') }}</td>
                                 <td class="py-4 capitalize">{{ str_replace('_', ' ', $order->status) }}</td>
@@ -81,19 +84,19 @@
                                             <button class="rounded-md bg-white px-3 py-2 font-semibold text-black" type="submit">Save</button>
                                         </form>
                                     @else
-                                        <span class="text-white/50">Closed</span>
+                                        <span class="text-white/75">Closed</span>
                                     @endif
                                 </td>
                             </tr>
                         @empty
-                            <tr><td class="py-5 text-white/60" colspan="6">No orders have been placed yet.</td></tr>
+                            <tr><td class="py-5 text-white/75" colspan="6">No orders have been placed yet.</td></tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <section class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6" id="products">
+        <section class="mt-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/[.06] to-white/[.02] p-6 shadow-xl md:p-8" id="products">
             <div>
                 <p class="text-xs uppercase tracking-widest text-white/55">Catalogue</p>
                 <h2 class="mt-2 text-2xl font-bold">Add a product</h2>

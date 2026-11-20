@@ -9,7 +9,7 @@
 @section('content')
     <main class="mx-auto max-w-6xl px-5 py-10 md:px-8">
         <h1 class="text-3xl font-bold">Your cart</h1>
-        <p class="mt-2 text-sm text-white/65">Review item quantities before pickup checkout.</p>
+        <p class="mt-2 text-sm text-white/75">Review item quantities before pickup checkout.</p>
 
         @if (session('status'))
             <p class="mt-6 rounded-lg bg-emerald-900/50 p-4 text-emerald-100" role="status">{{ session('status') }}</p>
