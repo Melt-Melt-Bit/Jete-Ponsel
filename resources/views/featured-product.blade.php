@@ -1,88 +1,67 @@
-<!DOCTYPE html>
-<html lang="id">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Featured products from JT Ponsel.">
-        <title>Featured Products — JT Ponsel</title>
-        @vite(['resources/css/featured-product.css', 'resources/js/featured-product.js'])
-    </head>
-    <body>
-        <x-site-header active="products" :cart-href="route('cart')" />
+@extends('layouts.store')
 
-        <main>
-            <section class="featured-hero">
-                <div>
-                    <p class="featured-kicker">JT PONSEL / CURATED COLLECTION</p>
-                    <h1>Featured<br><span>Products</span></h1>
-                    <p class="featured-intro">Temukan perangkat pilihan dan aksesori terbaik untuk melengkapi gaya hidup digitalmu.</p>
-                </div>
-                <div class="hero-orbit" aria-hidden="true">
-                    <span class="orbit-label">NEW ARRIVALS<br>2026</span>
-                    <div class="orbit-circle"></div>
-                    <span class="orbit-cross">✳</span>
-                </div>
-            </section>
+@section('title', 'Products — JT Ponsel')
 
-            <section class="featured-content" id="products">
-                <div class="featured-toolbar">
-                    <div>
-                        <p class="featured-kicker">HANDPICKED FOR YOU / 01</p>
-                        <h2>Recommended products</h2>
-                    </div>
-                    <label class="product-search">
-                        <span aria-hidden="true">⌕</span>
-                        <input type="search" placeholder="Search products, brands, or categories..." aria-label="Search products">
-                    </label>
-                </div>
+@section('header')
+    <x-site-header active="products" />
+@endsection
 
-                @php($earphonesAnchorSet = false)
-                <div class="product-grid" id="product-grid">
-                    @foreach ($products as $product)
-                        <article
-                            class="featured-card"
-                            data-product-card
-                            @if (($product['category'] ?? 'Phone') === 'Earphone' && ! $earphonesAnchorSet)
-                                id="earphones"
-                                @php($earphonesAnchorSet = true)
-                            @endif
-                        >
-                            <a class="card-link" href="{{ route('detail', ['product' => $product['id']]) }}" aria-label="View {{ $product['name'] }} details"></a>
-                            <div class="product-visual">
-                                <span class="product-badge">{{ $product['badge'] }}</span>
-                                <img src="{{ $product['image'] }}" alt="{{ $product['alt'] }}" loading="lazy">
-                            </div>
-                            <div class="product-details">
-                                <p class="product-brand">{{ $product['brand'] }}</p>
-                                <div class="product-title-row">
-                                    <h3>{{ $product['name'] }}</h3>
-                                    <button class="wishlist" type="button" aria-label="Add {{ $product['name'] }} to wishlist" data-wishlist>♡</button>
-                                </div>
-                                <p class="product-price">{{ $product['price'] }}</p>
-                                <div class="product-rating" aria-label="Rated {{ $product['rating'] }} out of 5">
-                                    <span>★★★★★</span>
-                                    <small>{{ $product['rating'] }} · {{ $product['reviews'] }} reviews</small>
-                                </div>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
-                <p class="empty-products" hidden>No products match your search.</p>
-            </section>
-        </main>
+@push('styles')
+    @vite(['resources/css/featured-product.css'])
+@endpush
 
-        <footer class="featured-footer" id="footer">
-            <div class="featured-footer-grid">
-                <div>
-                    <a class="brand-mark" href="{{ route('home') }}" aria-label="JT Ponsel home"><span class="brand-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 4h20a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 13h14M20 13v14M13 27h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span>JT<span class="brand-dot">.</span></span></a>
-                    <p class="footer-copy">Your premium destination for the latest smartphones, genuine accessories, and reliable electronic services.</p>
-                </div>
-                <div class="footer-links"><h3>QUICK LINKS</h3><a href="{{ url('/') }}">Home</a><a href="#products">Products</a><a href="#footer">Services</a><a href="#footer">Contact</a></div>
-                <div class="footer-links"><h3>PRODUCTS</h3><a href="#products">Apple &amp; Android Devices</a><a href="#products">Smart Accessories</a><a href="#products">Power &amp; Cables</a><a href="#products">Trade-in Program</a></div>
-                <div class="footer-links"><h3>SERVICES &amp; CARE</h3><a href="#footer">Official Warranty</a><a href="#footer">Device Repair</a><a href="#footer">Screen Protection</a><a href="#footer">Store Pickup</a></div>
-                <div class="footer-links"><h3>CONTACT US</h3><a href="tel:+6281234567890">+62 812-3456-7890</a><a href="mailto:support@jtponsel.com">support@jtponsel.com</a><span>Grand Indonesia Mall, Jakarta</span></div>
+@push('scripts')
+    @vite(['resources/js/featured-product.js'])
+@endpush
+
+@section('content')
+    <main class="mx-auto max-w-7xl px-5 py-10 md:px-10">
+        <section class="featured-hero mb-12 flex min-h-64 items-center justify-between gap-8 overflow-hidden rounded-2xl bg-white px-7 py-10 text-slate-950 md:px-12">
+            <div>
+                <p class="featured-kicker">JT PONSEL / CURATED COLLECTION</p>
+                <h1 class="text-5xl font-bold md:text-7xl">Featured<br><span>Products</span></h1>
+                <p class="mt-5 max-w-xl text-slate-600">Temukan perangkat pilihan dan aksesori terbaik untuk melengkapi gaya hidup digitalmu.</p>
             </div>
-            <div class="featured-copyright"><span>© 2026 JT Ponsel. All rights reserved.</span><span>Privacy Policy&nbsp;&nbsp; Terms of Service&nbsp;&nbsp; Sitemap</span></div>
-        </footer>
-    </body>
-</html>
+            <div class="hero-orbit hidden md:block" aria-hidden="true">
+                <span class="orbit-label">NEW ARRIVALS</span>
+                <div class="orbit-circle"></div>
+                <span class="orbit-cross">✳</span>
+            </div>
+        </section>
+
+        <section id="products">
+            <div class="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+                <div>
+                    <p class="featured-kicker">HANDPICKED FOR YOU / 01</p>
+                    <h2 class="text-3xl font-bold">{{ $category ? ucfirst($category) : 'Recommended products' }}</h2>
+                </div>
+                <label class="product-search flex w-full max-w-md items-center gap-3 rounded-lg border border-white/20 px-4 py-3">
+                    <span aria-hidden="true">⌕</span>
+                    <input class="w-full bg-transparent outline-none" type="search" placeholder="Search products or brands..." aria-label="Search products">
+                </label>
+            </div>
+
+            <nav class="mb-8 flex flex-wrap gap-3 text-sm" aria-label="Filter products">
+                <a class="rounded-full border border-white/25 px-4 py-2 hover:bg-white/10" href="{{ route('products.index') }}">All</a>
+                <a class="rounded-full border border-white/25 px-4 py-2 hover:bg-white/10" href="{{ route('products.index', ['category' => 'phone']) }}">Phones</a>
+                <a class="rounded-full border border-white/25 px-4 py-2 hover:bg-white/10" href="{{ route('products.index', ['category' => 'earphone']) }}">Earphones</a>
+                <a class="rounded-full border border-white/25 px-4 py-2 hover:bg-white/10" href="{{ route('products.index', ['category' => 'accessory']) }}">Accessories</a>
+            </nav>
+
+            <div class="product-grid grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" id="product-grid">
+                @forelse ($products as $product)
+                    <div data-product-card>
+                        <x-product-card :product="$product" />
+                    </div>
+                @empty
+                    <p class="rounded-xl border border-white/10 p-6 text-white/70">There are no products in this collection yet.</p>
+                @endforelse
+            </div>
+            <p class="empty-products mt-6 text-center text-white/70" hidden>No products match your search.</p>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/10 px-5 py-8 text-center text-sm text-white/60">
+        <p>© {{ now()->year }} JT Ponsel. Product prices are shown in Indonesian rupiah.</p>
+    </footer>
+@endsection
