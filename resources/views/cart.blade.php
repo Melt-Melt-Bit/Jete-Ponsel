@@ -35,7 +35,7 @@
                 <section class="flex flex-col gap-4" aria-label="Cart items">
                     @foreach ($cartItems as $item)
                         <article class="grid gap-5 rounded-xl border border-white/10 bg-white p-5 text-slate-950 sm:grid-cols-[8rem_1fr]">
-                            <img class="h-32 w-full rounded-lg bg-slate-100 object-contain p-3" src="{{ $item['product']->image_url }}" alt="{{ $item['product']->brand }} {{ $item['product']->name }}">
+                            <img class="h-32 w-full rounded-lg bg-slate-100 object-contain p-3" src="{{ $item['product']->image_url }}" alt="{{ $item['product']->brand }} {{ $item['product']->name }}" referrerpolicy="no-referrer">
                             <div class="flex flex-col justify-between gap-4">
                                 <div class="flex flex-wrap items-start justify-between gap-3">
                                     <div>

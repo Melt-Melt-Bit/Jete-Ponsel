@@ -38,9 +38,21 @@ Route::middleware('auth')->prefix('my/orders')->name('account.orders.')->group(f
 Route::get('/profile', [AccountOrderController::class, 'profile'])
     ->middleware('auth')
     ->name('profile');
+Route::patch('/profile', [AccountOrderController::class, 'updateProfile'])
+    ->middleware('auth')
+    ->name('profile.update');
 
 Route::middleware(['auth', EnsureAdmin::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/users', [AdminController::class, 'usersIndex'])->name('users.index');
+    Route::get('/users/{user}/edit', [AdminController::class, 'editUser'])->whereNumber('user')->name('users.edit');
+    Route::patch('/users/{user}', [AdminController::class, 'updateUser'])->whereNumber('user')->name('users.update');
+    Route::patch('/users/{user}/restriction', [AdminController::class, 'toggleCustomerRestriction'])
+        ->whereNumber('user')
+        ->name('users.restriction');
+    Route::delete('/users/{user}', [AdminController::class, 'destroyCustomer'])
+        ->whereNumber('user')
+        ->name('users.destroy');
     Route::resource('products', ProductController::class)->only(['store', 'update', 'destroy']);
     Route::patch('/products/{product}/visibility', [ProductController::class, 'toggleVisibility'])
         ->whereNumber('product')

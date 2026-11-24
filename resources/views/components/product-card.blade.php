@@ -2,7 +2,7 @@
 
 <article class="flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white text-slate-950 shadow-lg">
     <a class="block bg-slate-100 p-6" href="{{ route('products.show', $product) }}" aria-label="View {{ $product->brand }} {{ $product->name }}">
-        <img class="h-56 w-full object-contain" src="{{ $product->image_url }}" alt="{{ $product->brand }} {{ $product->name }}" loading="lazy">
+        <img class="h-56 w-full object-contain" src="{{ $product->image_url }}" alt="{{ $product->brand }} {{ $product->name }}" loading="lazy" referrerpolicy="no-referrer">
     </a>
     <div class="flex flex-1 flex-col gap-3 p-5">
         <div class="flex items-center justify-between gap-3">

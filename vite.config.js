@@ -17,6 +17,8 @@ export default defineConfig({
                 'resources/css/login.css',
                 'resources/css/profile.css',
                 'resources/css/Riwayat-Pesanan.css',
+                'resources/css/detail.css',
+                'resources/css/pembayaran.css',
             ],
             refresh: true,
             fonts: [
