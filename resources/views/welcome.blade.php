@@ -82,7 +82,7 @@
                         @forelse ($featuredProducts as $product)
                             <article class="product-card">
                                 <a href="{{ route('products.show', $product) }}" aria-label="View {{ $product->brand }} {{ $product->name }}">
-                                    <div class="product-image"><img src="{{ $product->image_url }}" alt="{{ $product->brand }} {{ $product->name }}" loading="lazy"></div>
+                                    <div class="product-image"><img src="{{ $product->image_url }}" alt="{{ $product->brand }} {{ $product->name }}" loading="lazy" referrerpolicy="no-referrer"></div>
                                     <div class="product-info">
                                         <p>{{ $product->brand }}</p>
                                         <h3>{{ $product->name }}</h3>

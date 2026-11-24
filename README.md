@@ -34,13 +34,23 @@ Untuk konfigurasi database selain SQLite, ubah nilai `DB_CONNECTION` dan variabe
 
 ### Menyiapkan akun admin
 
-Atur `ADMIN_NAME`, `ADMIN_EMAIL`, dan `ADMIN_PASSWORD` di `.env` menggunakan kredensial yang aman. Kemudian jalankan:
+Untuk demo tim lokal, akun admin dapat memakai email `admin@jtponsel.local`. Atur kredensial secara lokal di `.env`:
+
+```dotenv
+ADMIN_NAME="Store admin"
+ADMIN_EMAIL=admin@jtponsel.local
+ADMIN_PASSWORD=
+```
+
+Isi `ADMIN_PASSWORD` secara lokal dengan kata sandi acak sebelum menjalankan seeder, lalu bagikan hanya melalui password manager atau kanal aman lain. Jangan menaruh kata sandi admin di README, source code, atau commit Git; riwayat Git dan salinan repository dapat tetap menyimpannya meskipun file kemudian diedit. Jangan gunakan akun demo ini di production.
+
+Setelah `.env` disiapkan, jalankan:
 
 ```bash
 php artisan db:seed --class=AdminSeeder --force
 ```
 
-Seeder tidak membuat akun admin jika email atau kata sandi belum diisi. Kredensial admin tidak disediakan di repositori.
+Seeder membuat atau memperbarui akun admin berdasarkan nilai tersebut. Seeder tidak membuat akun jika email atau kata sandi belum diisi.
 
 ### Menjalankan aplikasi
 

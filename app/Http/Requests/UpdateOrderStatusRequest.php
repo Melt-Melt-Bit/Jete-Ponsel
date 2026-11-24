@@ -31,7 +31,7 @@ class UpdateOrderStatusRequest extends FormRequest
                 }
 
                 $allowedTransitions = [
-                    'pending' => ['ready_for_pickup', 'cancelled'],
+                    'pending' => ['ready_for_pickup', 'completed', 'cancelled'],
                     'ready_for_pickup' => ['completed', 'cancelled'],
                     'completed' => [],
                     'cancelled' => [],

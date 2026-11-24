@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Number;
+use Illuminate\Support\Str;
 
 #[Fillable(['sku', 'brand', 'name', 'category', 'description', 'price', 'stock', 'badge', 'image_path', 'is_active'])]
 class Product extends Model
@@ -32,6 +33,10 @@ class Product extends Model
 
     public function getImageUrlAttribute(): string
     {
+        if (Str::startsWith($this->image_path, ['http://', 'https://'])) {
+            return $this->image_path;
+        }
+
         return Vite::asset($this->image_path);
     }
 

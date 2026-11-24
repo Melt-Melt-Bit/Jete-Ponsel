@@ -47,7 +47,7 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->withErrors(['cart' => 'The products in your cart are no longer available.']);
         }
 
-        return view('checkout', [
+        return view('Pembayaran', [
             'cartItems' => $cartItems,
             'subtotal' => $subtotal,
             'customer' => $request->user(),

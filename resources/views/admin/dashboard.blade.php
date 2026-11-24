@@ -19,7 +19,10 @@
                 <p class="text-xs font-semibold uppercase tracking-[.24em] text-blue-300">Store administration</p>
                 <h1 class="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Dashboard</h1>
             </div>
-            <p class="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-white/80">Signed in as <span class="font-semibold text-white">{{ auth()->user()->name }}</span></p>
+            <div class="flex flex-wrap items-center gap-3">
+                <a class="rounded-full border border-blue-300/30 bg-blue-400/10 px-4 py-2 text-sm font-semibold text-blue-100 transition hover:bg-blue-400/20" href="{{ route('admin.users.index') }}">Manage users</a>
+                <p class="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-white/80">Signed in as <span class="font-semibold text-white">{{ auth()->user()->name }}</span></p>
+            </div>
             </div>
         </div>
 
@@ -61,7 +64,7 @@
                                 <td class="py-4">{{ $order->customer_name }}<br><span class="text-xs text-white/75">{{ $order->customer_email }}</span></td>
                                 <td class="py-4">{{ $order->items->sum('quantity') }}</td>
                                 <td class="py-4">Rp{{ number_format($order->total, 0, ',', '.') }}</td>
-                                <td class="py-4 capitalize">{{ str_replace('_', ' ', $order->status) }}</td>
+                                <td class="py-4">{{ $order->status === 'completed' ? 'Taken / Done' : str_replace('_', ' ', $order->status) }}</td>
                                 <td class="py-4">
                                     @if ($order->status === 'pending')
                                         <form class="flex gap-2" action="{{ route('admin.orders.status', $order) }}" method="post">
@@ -69,6 +72,7 @@
                                             @method('PATCH')
                                             <select class="rounded-md bg-slate-900 px-2 py-2" name="status" aria-label="New status for {{ $order->order_number }}">
                                                 <option value="ready_for_pickup">Ready for pickup</option>
+                                                <option value="completed">Taken / Done</option>
                                                 <option value="cancelled">Cancel</option>
                                             </select>
                                             <button class="rounded-md bg-white px-3 py-2 font-semibold text-black" type="submit">Save</button>
@@ -78,7 +82,7 @@
                                             @csrf
                                             @method('PATCH')
                                             <select class="rounded-md bg-slate-900 px-2 py-2" name="status" aria-label="New status for {{ $order->order_number }}">
-                                                <option value="completed">Complete pickup</option>
+                                                <option value="completed">Taken / Done</option>
                                                 <option value="cancelled">Cancel</option>
                                             </select>
                                             <button class="rounded-md bg-white px-3 py-2 font-semibold text-black" type="submit">Save</button>
@@ -127,7 +131,13 @@
                 @forelse ($products as $product)
                     <details class="rounded-xl border border-white/10 bg-white/5 p-5">
                         <summary class="flex cursor-pointer flex-wrap items-center justify-between gap-4 font-semibold">
-                            <span>{{ $product->brand }} {{ $product->name }} <span class="font-normal text-white/60">· {{ $product->sku }} · Rp{{ number_format($product->price, 0, ',', '.') }}</span></span>
+                            <span class="flex min-w-0 items-center gap-4">
+                                <img class="h-14 w-14 shrink-0 rounded-lg bg-white p-1.5 object-contain" src="{{ $product->image_url }}" alt="" loading="lazy" aria-hidden="true">
+                                <span>
+                                    {{ $product->brand }} {{ $product->name }}
+                                    <span class="font-normal text-white/60">· {{ $product->sku }} · Rp{{ number_format($product->price, 0, ',', '.') }}</span>
+                                </span>
+                            </span>
                             <span class="{{ $product->is_active ? 'text-emerald-300' : 'text-white/50' }}">{{ $product->is_active ? 'Visible' : 'Hidden' }} · Stock {{ $product->stock }}</span>
                         </summary>
                         <form class="mt-5 grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-2 lg:grid-cols-3" action="{{ route('admin.products.update', $product) }}" method="post">
@@ -147,7 +157,7 @@
                             <label class="flex flex-col gap-2 text-sm">Stock<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="stock" type="number" min="0" value="{{ $product->stock }}" required></label>
                             <label class="flex flex-col gap-2 text-sm">Badge<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="badge" value="{{ $product->badge }}"></label>
                             <label class="flex flex-col gap-2 text-sm">Image path<input class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="image_path" value="{{ $product->image_path }}" data-image-path="product-{{ $product->id }}" required></label>
-                            <img class="h-20 w-20 rounded bg-white object-contain p-2" data-image-preview="product-{{ $product->id }}" alt="Selected product image preview" hidden>
+                            <img class="h-20 w-20 rounded bg-white object-contain p-2" src="{{ $product->image_url }}" data-image-preview="product-{{ $product->id }}" alt="{{ $product->brand }} {{ $product->name }} product image preview" loading="lazy">
                             <label class="flex flex-col gap-2 text-sm sm:col-span-2 lg:col-span-3">Description<textarea class="rounded-md border border-white/15 bg-black/30 px-3 py-2" name="description" rows="2">{{ $product->description }}</textarea></label>
                             <button class="w-fit rounded-lg bg-white px-5 py-3 font-semibold text-black" type="submit">Save changes</button>
                         </form>
